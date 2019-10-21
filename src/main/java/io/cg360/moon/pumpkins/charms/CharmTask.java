@@ -82,18 +82,7 @@ public class CharmTask implements Runnable {
                                             });
                                         }).interval(0, TimeUnit.SECONDS).submit(PumpkinsPlugin.getPumpkinsPlugin());
                             }
-                            if(Utils.tagStartsWith(tags, "haste_charm").isPresent()){
-                                Task task = Task.builder()
-                                        .execute(task1 -> {
-                                            p.getOrCreate(PotionEffectData.class).ifPresent(potionEffectData -> {
-                                                p.offer(
-                                                        potionEffectData.set(potionEffectData.effects()
-                                                                .add(PotionEffect.of(PotionEffectTypes.HASTE, 4, 200))
-                                                        ));
-                                            });
-                                        }).interval(0, TimeUnit.SECONDS).submit(PumpkinsPlugin.getPumpkinsPlugin());
-                            }
-                            if(Utils.tagStartsWith(tags, "invis_Charm").isPresent()){
+                            if(Utils.tagStartsWith(tags, "invis_charm").isPresent()){
                                 Task task = Task.builder()
                                         .execute(task1 -> {
                                             p.getOrCreate(PotionEffectData.class).ifPresent(potionEffectData -> {
@@ -104,13 +93,14 @@ public class CharmTask implements Runnable {
                                             });
                                         }).interval(0, TimeUnit.SECONDS).submit(PumpkinsPlugin.getPumpkinsPlugin());
                             }
-                            if(Utils.tagStartsWith(tags, "sight_charm").isPresent()){
+                            if(Utils.tagStartsWith(tags, "mining_charm").isPresent()){
                                 Task task = Task.builder()
                                         .execute(task1 -> {
                                             p.getOrCreate(PotionEffectData.class).ifPresent(potionEffectData -> {
                                                 p.offer(
                                                         potionEffectData.set(potionEffectData.effects()
                                                                 .add(PotionEffect.of(PotionEffectTypes.NIGHT_VISION, 1, 200))
+                                                                .add(PotionEffect.of(PotionEffectTypes.HASTE, 4, 200))
                                                         ));
                                             });
                                         }).interval(0, TimeUnit.SECONDS).submit(PumpkinsPlugin.getPumpkinsPlugin());

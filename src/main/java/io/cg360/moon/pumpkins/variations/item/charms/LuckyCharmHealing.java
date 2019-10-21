@@ -1,4 +1,4 @@
-package io.cg360.moon.pumpkins.variations.item.wands;
+package io.cg360.moon.pumpkins.variations.item.charms;
 
 import io.cg360.moon.pumpkins.variations.PumpkinLuckyRoll;
 import org.spongepowered.api.data.key.Keys;
@@ -19,32 +19,23 @@ import org.spongepowered.api.world.World;
 
 import java.util.Arrays;
 import java.util.Optional;
-import java.util.Random;
 
-public class LuckyScreamingStick extends PumpkinLuckyRoll {
+public class LuckyCharmHealing extends PumpkinLuckyRoll {
 
     @Override
     protected void run(Player player, Location<World> loc, int luckmult){
-        ItemStack itemStack = ItemStack.builder().itemType(ItemTypes.STICK).quantity(1).build();
-
-        int offluck = luckmult + 1;
-        int lucklvl = new Random().nextInt((2 + offluck) * 3) + 5;
-
-        itemStack.offer(Keys.DISPLAY_NAME, Text.of(TextColors.LIGHT_PURPLE, TextStyles.BOLD, "Wand of Screaming"));
+        ItemStack itemStack = ItemStack.builder().itemType(ItemTypes.BEETROOT).quantity(1).build();
+        itemStack.offer(Keys.DISPLAY_NAME, Text.of(TextColors.RED, TextStyles.BOLD, "Healing Charm"));
         itemStack.offer(Keys.ITEM_LORE, Arrays.asList(
-                    Text.of(TextColors.BLACK, String.format("cooldown:6,screaming:%s", lucklvl)),
-                    Text.of(TextColors.YELLOW, "What else is there to know?"),
-                    Text.of(TextColors.YELLOW, "It screams at your enemies."),
-                    Text.of(TextColors.YELLOW, "(but makes them quicker)"),
-                    Text.of(""),
-                    Text.of(TextColors.RED, TextStyles.BOLD, "Cooldown: 6s"),
-                    Text.of(TextColors.GOLD, TextStyles.BOLD, String.format("Radius: %s", lucklvl))
+                    Text.of(TextColors.BLACK, "regeneration_charm"),
+                    Text.of(TextColors.RED, "Gives you regeneration 3"),
+                    Text.of(TextColors.RED, "when held in the off hand.")
                 ));
 
         Optional<EnchantmentData> dat = itemStack.getOrCreate(EnchantmentData.class);
         if(dat.isPresent()){
             EnchantmentData data = dat.get();
-            data.set(dat.get().enchantments().add(Enchantment.of(EnchantmentTypes.KNOCKBACK, 10)));
+            data.set(dat.get().enchantments().add(Enchantment.of(EnchantmentTypes.PROTECTION, 1)));
             itemStack.offer(data);
         }
 
@@ -53,6 +44,6 @@ public class LuckyScreamingStick extends PumpkinLuckyRoll {
         e.offer(Keys.REPRESENTED_ITEM, s);
         loc.getExtent().spawnEntity(e);
 
-        player.sendMessage(Text.of(TextColors.GOLD, TextStyles.BOLD, "TREAT", TextStyles.RESET, TextColors.GOLD, " You got a wand!"));
+        player.sendMessage(Text.of(TextColors.GOLD, TextStyles.BOLD, "TREAT", TextStyles.RESET, TextColors.GOLD, " You got a Life Charm!"));
     }
 }

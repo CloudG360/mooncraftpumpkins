@@ -11,6 +11,7 @@ import io.cg360.moon.pumpkins.managers.PumpkinResultManager;
 import io.cg360.moon.pumpkins.variations.PumpkinType;
 import io.cg360.moon.pumpkins.variations.item.LuckyPumpkinCrate;
 import io.cg360.moon.pumpkins.variations.item.UnluckyPumpkinHelm;
+import io.cg360.moon.pumpkins.variations.item.charms.*;
 import io.cg360.moon.pumpkins.variations.item.wands.LuckyDamagingStick;
 import io.cg360.moon.pumpkins.variations.item.wands.LuckyLeapingStick;
 import io.cg360.moon.pumpkins.variations.item.wands.LuckyScreamingStick;
@@ -113,6 +114,8 @@ public class PumpkinsPlugin {
 
         pumpkinResultManager.registerRoll(new LuckySpookyLlamas().setConfig("m_llamas", 15, PumpkinType.MIXED));
 
+
+
         pumpkinResultManager.registerRoll(new LuckyPumpkinCrate().setConfig("l_pumpkin_crate", 10, PumpkinType.LUCKY));
         pumpkinResultManager.registerRoll(new LuckyScreamingStick().setConfig("l_wand_screaming", 5, PumpkinType.LUCKY));
         pumpkinResultManager.registerRoll(new LuckyLeapingStick().setConfig("l_wand_leaping", 5, PumpkinType.LUCKY));
@@ -122,6 +125,18 @@ public class PumpkinsPlugin {
         pumpkinResultManager.registerRoll(new LuckyDiamondBlock().setConfig("l_block_diamond", 10, PumpkinType.LUCKY));
         pumpkinResultManager.registerRoll(new LuckyEmeraldBlock().setConfig("l_block_emerald", 10, PumpkinType.LUCKY));
         pumpkinResultManager.registerRoll(new LuckyDragonEgg().setConfig("l_block_egg", 10, PumpkinType.LUCKY));
+
+        pumpkinResultManager.registerRoll(new LuckyCharmBunny().setConfig("l_charm_bunny", 3, PumpkinType.LUCKY));
+        pumpkinResultManager.registerRoll(new LuckyCharmFloating().setConfig("l_charm_floating", 3, PumpkinType.LUCKY));
+        pumpkinResultManager.registerRoll(new LuckyCharmGills().setConfig("l_charm_gills", 3, PumpkinType.LUCKY));
+        pumpkinResultManager.registerRoll(new LuckyCharmHealing().setConfig("l_charm_healing", 3, PumpkinType.LUCKY));
+        pumpkinResultManager.registerRoll(new LuckyCharmHercules().setConfig("l_charm_hercules", 3, PumpkinType.LUCKY));
+        pumpkinResultManager.registerRoll(new LuckyCharmInvisibility().setConfig("l_charm_invis", 3, PumpkinType.LUCKY));
+        pumpkinResultManager.registerRoll(new LuckyCharmLava().setConfig("l_charm_lava", 3, PumpkinType.LUCKY));
+        pumpkinResultManager.registerRoll(new LuckyCharmLife().setConfig("l_charm_life", 3, PumpkinType.LUCKY));
+        pumpkinResultManager.registerRoll(new LuckyCharmMining().setConfig("l_charm_mining", 3, PumpkinType.LUCKY));
+        pumpkinResultManager.registerRoll(new LuckyCharmSwiftness().setConfig("l_charm_swiftness", 3, PumpkinType.LUCKY));
+
 
         pumpkinResultManager.registerRoll(new UnluckyPumpkinHelm().setConfig("u_cursed_helm", 10, PumpkinType.UNLUCKY));
         pumpkinResultManager.registerRoll(new UnluckyPumplinHorde().setConfig("u_pumplin_raid", 20, PumpkinType.UNLUCKY));

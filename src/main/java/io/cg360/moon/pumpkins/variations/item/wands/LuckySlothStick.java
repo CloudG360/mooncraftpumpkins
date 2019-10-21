@@ -1,9 +1,6 @@
 package io.cg360.moon.pumpkins.variations.item.wands;
 
-import io.cg360.moon.pumpkins.PumpkinConfiguration;
-import io.cg360.moon.pumpkins.PumpkinsPlugin;
 import io.cg360.moon.pumpkins.variations.PumpkinLuckyRoll;
-import io.cg360.moon.supplykeys.entities.items.SerializableItem;
 import org.spongepowered.api.data.key.Keys;
 import org.spongepowered.api.data.manipulator.mutable.item.EnchantmentData;
 import org.spongepowered.api.entity.Entity;
@@ -28,8 +25,6 @@ public class LuckySlothStick extends PumpkinLuckyRoll {
 
     @Override
     protected void run(Player player, Location<World> loc, int luckmult){
-        Optional<SerializableItem> i = PumpkinsPlugin.getSKPlugin().getPoolManager().getItem(PumpkinConfiguration.get().getPumpkinCrateKeyID());
-
         int offluck = 1 + luckmult;
         int lucklvl = new Random().nextInt((2 + offluck) * 2) + 3;
         int radius = new Random().nextInt((2 + offluck) * 3) + 5;
