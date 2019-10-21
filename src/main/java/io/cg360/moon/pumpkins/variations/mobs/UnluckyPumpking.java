@@ -48,6 +48,7 @@ public class UnluckyPumpking extends PumpkinLuckyRoll {
         Entity e = loc.getExtent().createEntity(EntityTypes.WITHER_SKELETON, loc.getPosition());
         e.offer(Keys.DISPLAY_NAME, Text.of(TextColors.GOLD, TextStyles.BOLD, "The Pumpkin King"));
         e.offer(Keys.CUSTOM_NAME_VISIBLE, true);
+        e.offer(Keys.MAX_HEALTH, 50d);
         WitherSkeleton w = (WitherSkeleton) e;
 
         ItemStack helm = ItemStack.builder().itemType(ItemTypes.LIT_PUMPKIN).build();
@@ -97,8 +98,8 @@ public class UnluckyPumpking extends PumpkinLuckyRoll {
                     .add(PotionEffect.of(PotionEffectTypes.REGENERATION, 3, 100000))
                     .add(PotionEffect.of(PotionEffectTypes.FIRE_RESISTANCE, 1, 100000))
                     .add(PotionEffect.of(PotionEffectTypes.GLOWING, 1, 100000))
-                    .add(PotionEffect.of(PotionEffectTypes.HEALTH_BOOST, 10, 100000))
-                    .add(PotionEffect.of(PotionEffectTypes.GLOWING, 1, 100000))
+                    .add(PotionEffect.of(PotionEffectTypes.RESISTANCE, 3, 100000))
+                    .add(PotionEffect.of(PotionEffectTypes.GLOWING, 0, 100000))
                     .add(PotionEffect.of(PotionEffectTypes.STRENGTH, 3, 100000))
                     .add(PotionEffect.of(PotionEffectTypes.SPEED, 2, 100000))
             );
@@ -120,7 +121,7 @@ public class UnluckyPumpking extends PumpkinLuckyRoll {
             for(Player pl:loc.getExtent().getPlayers()){
                 if(loc.getPosition().distance(pl.getPosition()) <= RADIUS){
                     pl.sendMessage(Text.of(TextColors.DARK_GRAY, TextStyles.BOLD, "TRICK", TextStyles.RESET, TextColors.GOLD, " The Pumpkin King has arrived..."));
-                    pl.playSound(SoundTypes.ENTITY_WITHER_AMBIENT, pl.getPosition(), 1d, 0.5d);
+                    pl.playSound(SoundTypes.ENTITY_WITHER_SPAWN, pl.getPosition(), 1d, 0.5d);
                     bb.addPlayer(pl);
                 }
             }

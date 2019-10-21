@@ -94,8 +94,8 @@ public class PumpkinsPlugin {
     private PumpkinConfiguration configuration;
 
     private HashMap<ItemStackSnapshot, LocalDateTime> cooldowns;
-    private ArrayList<UUID> ignoreIDs;
-    private ArrayList<UUID> ignoreExplosionIDs;
+    private ArrayList<String> ignoreIDs;
+    private ArrayList<String> ignoreExplosionIDs;
 
     @Inject
     private Logger logger;
@@ -147,7 +147,7 @@ public class PumpkinsPlugin {
         pumpkinResultManager.registerRoll(new UnluckyPumplinHorde().setConfig("u_pumplin_raid", 20, PumpkinType.UNLUCKY));
         pumpkinResultManager.registerRoll(new UnluckyPumpking().setConfig("u_pumpking", 5, PumpkinType.UNLUCKY));
         pumpkinResultManager.registerRoll(new UnluckyGhastTrio().setConfig("u_three_ghosts", 15, PumpkinType.UNLUCKY));
-        pumpkinResultManager.registerRoll(new UnluckyGhastTrio().setConfig("u_witches", 15, PumpkinType.UNLUCKY));
+        pumpkinResultManager.registerRoll(new UnluckyWitch().setConfig("u_witches", 15, PumpkinType.UNLUCKY));
         pumpkinResultManager.registerRoll(new UnluckyAnvil().setConfig("u_anvil", 15, PumpkinType.UNLUCKY));
         pumpkinResultManager.registerRoll(new UnluckyFire().setConfig("u_fire", 15, PumpkinType.UNLUCKY));
         pumpkinResultManager.registerRoll(new UnluckyLava().setConfig("u_lava", 15, PumpkinType.UNLUCKY));
@@ -188,12 +188,12 @@ public class PumpkinsPlugin {
     public void onDamage(DamageEntityEvent event){
         Optional<Entity> e = event.getCause().first(Entity.class);
         if(!e.isPresent()) return;
-        if(this.ignoreIDs.contains(e.get().getUniqueId())){
+        if(this.ignoreIDs.contains(e.get().getUniqueId().toString())){
             event.setCancelled(true);
-            ignoreIDs.remove(e.get().getUniqueId());
+            ignoreIDs.remove(e.get().getUniqueId().toString());
         }
         if(event.getContext().get(EventContextKeys.DAMAGE_TYPE).orElse(DamageTypes.GENERIC) == DamageTypes.EXPLOSIVE){
-            if(ignoreExplosionIDs.contains(event.getTargetEntity().getUniqueId())){
+            if(ignoreExplosionIDs.contains(event.getTargetEntity().getUniqueId().toString())){
                 event.setCancelled(true);
             }
         }
@@ -614,8 +614,8 @@ public class PumpkinsPlugin {
         }
     }
 
-    public void registerIgnoreUUID(UUID uuid){ this.ignoreIDs.add(uuid); }
-    public void registerIgnoreExplosionUUID(UUID uuid){ this.ignoreExplosionIDs.add(uuid); }
+    public void registerIgnoreUUID(UUID uuid){ this.ignoreIDs.add(uuid.toString()); }
+    public void registerIgnoreExplosionUUID(UUID uuid){ this.ignoreExplosionIDs.add(uuid.toString()); }
 
     public static PumpkinsPlugin getPumpkinsPlugin() { return pumpkinsPlugin; }
     public static Supplykeys getSKPlugin(){ return supplykeys; }
