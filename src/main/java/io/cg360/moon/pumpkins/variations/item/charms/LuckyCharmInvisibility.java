@@ -24,7 +24,7 @@ public class LuckyCharmInvisibility extends PumpkinLuckyRoll {
 
     @Override
     protected void run(Player player, Location<World> loc, int luckmult){
-        ItemStack itemStack = ItemStack.builder().itemType(ItemTypes.BEETROOT).quantity(1).build();
+        ItemStack itemStack = ItemStack.builder().itemType(ItemTypes.GLASS_BOTTLE).quantity(1).build();
         itemStack.offer(Keys.DISPLAY_NAME, Text.of(TextColors.DARK_PURPLE, TextStyles.BOLD, "Invisibility Charm"));
         itemStack.offer(Keys.ITEM_LORE, Arrays.asList(
                     Text.of(TextColors.BLACK, "invis_charm"),

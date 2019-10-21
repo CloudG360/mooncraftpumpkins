@@ -24,7 +24,7 @@ public class LuckyCharmFloating extends PumpkinLuckyRoll {
 
     @Override
     protected void run(Player player, Location<World> loc, int luckmult){
-        ItemStack itemStack = ItemStack.builder().itemType(ItemTypes.BEETROOT).quantity(1).build();
+        ItemStack itemStack = ItemStack.builder().itemType(ItemTypes.APPLE).quantity(1).build();
         itemStack.offer(Keys.DISPLAY_NAME, Text.of(TextColors.WHITE, TextStyles.BOLD, "Floating Charm"));
         itemStack.offer(Keys.ITEM_LORE, Arrays.asList(
                     Text.of(TextColors.BLACK, "levitation_charm"),

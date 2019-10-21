@@ -24,8 +24,8 @@ public class LuckyCharmBunny extends PumpkinLuckyRoll {
 
     @Override
     protected void run(Player player, Location<World> loc, int luckmult){
-        ItemStack itemStack = ItemStack.builder().itemType(ItemTypes.BEETROOT).quantity(1).build();
-        itemStack.offer(Keys.DISPLAY_NAME, Text.of(TextColors.WHITE, TextStyles.BOLD, "Bunny Charm"));
+        ItemStack itemStack = ItemStack.builder().itemType(ItemTypes.RABBIT_FOOT).quantity(1).build();
+        itemStack.offer(Keys.DISPLAY_NAME, Text.of(TextColors.GREEN, TextStyles.BOLD, "Bunny Charm"));
         itemStack.offer(Keys.ITEM_LORE, Arrays.asList(
                     Text.of(TextColors.BLACK, "bunny_charm"),
                     Text.of(TextColors.GREEN, "Gives you Jump Boost"),

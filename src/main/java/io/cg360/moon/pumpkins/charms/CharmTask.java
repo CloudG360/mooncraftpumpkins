@@ -20,6 +20,14 @@ public class CharmTask implements Runnable {
     @Override
     public void run() {
         for(Player p: Sponge.getServer().getOnlinePlayers()){
+            Task mt = Task.builder()
+                    .execute(task1 -> {
+                        p.getOrCreate(PotionEffectData.class).ifPresent(potionEffectData -> {
+                            for(PotionEffect data: potionEffectData.effects()){
+                                if(data.getType() == PotionEffectTypes.NIGHT_VISION && data.getAmplifier() == 2)p.offer(potionEffectData.remove(data));
+                            }
+                        });
+                    }).interval(0, TimeUnit.SECONDS).submit(PumpkinsPlugin.getPumpkinsPlugin());
             if(p.getItemInHand(HandTypes.OFF_HAND).isPresent()){
                 ItemStack s = p.getItemInHand(HandTypes.OFF_HAND).get();
                 s.get(Keys.ITEM_LORE).ifPresent(texts -> {
@@ -33,7 +41,7 @@ public class CharmTask implements Runnable {
                                             p.getOrCreate(PotionEffectData.class).ifPresent(potionEffectData -> {
                                                 p.offer(
                                                         potionEffectData.set(potionEffectData.effects()
-                                                                .add(PotionEffect.of(PotionEffectTypes.FIRE_RESISTANCE, 1, 200))
+                                                                .add(PotionEffect.of(PotionEffectTypes.FIRE_RESISTANCE, 1, 30))
                                                         ));
                                             });
                                         }).interval(0, TimeUnit.SECONDS).submit(PumpkinsPlugin.getPumpkinsPlugin());
@@ -44,7 +52,7 @@ public class CharmTask implements Runnable {
                                             p.getOrCreate(PotionEffectData.class).ifPresent(potionEffectData -> {
                                                 p.offer(
                                                         potionEffectData.set(potionEffectData.effects()
-                                                                .add(PotionEffect.of(PotionEffectTypes.SPEED, 3, 200))
+                                                                .add(PotionEffect.of(PotionEffectTypes.SPEED, 3, 30))
                                                         ));
                                             });
                                         }).interval(0, TimeUnit.SECONDS).submit(PumpkinsPlugin.getPumpkinsPlugin());
@@ -55,7 +63,7 @@ public class CharmTask implements Runnable {
                                             p.getOrCreate(PotionEffectData.class).ifPresent(potionEffectData -> {
                                                 p.offer(
                                                         potionEffectData.set(potionEffectData.effects()
-                                                                .add(PotionEffect.of(PotionEffectTypes.STRENGTH, 3, 200))
+                                                                .add(PotionEffect.of(PotionEffectTypes.STRENGTH, 3, 30))
                                                         ));
                                             });
                                         }).interval(0, TimeUnit.SECONDS).submit(PumpkinsPlugin.getPumpkinsPlugin());
@@ -66,7 +74,7 @@ public class CharmTask implements Runnable {
                                             p.getOrCreate(PotionEffectData.class).ifPresent(potionEffectData -> {
                                                 p.offer(
                                                         potionEffectData.set(potionEffectData.effects()
-                                                                .add(PotionEffect.of(PotionEffectTypes.HEALTH_BOOST, 6, 200))
+                                                                .add(PotionEffect.of(PotionEffectTypes.HEALTH_BOOST, 2, 30))
                                                         ));
                                             });
                                         }).interval(0, TimeUnit.SECONDS).submit(PumpkinsPlugin.getPumpkinsPlugin());
@@ -76,9 +84,7 @@ public class CharmTask implements Runnable {
                                         .execute(task1 -> {
                                             p.getOrCreate(PotionEffectData.class).ifPresent(potionEffectData -> {
                                                 p.offer(
-                                                        potionEffectData.set(potionEffectData.effects()
-                                                                .add(PotionEffect.of(PotionEffectTypes.REGENERATION, 3, 200))
-                                                        ));
+                                                        potionEffectData.addElement(PotionEffect.of(PotionEffectTypes.REGENERATION, 3, 40)));
                                             });
                                         }).interval(0, TimeUnit.SECONDS).submit(PumpkinsPlugin.getPumpkinsPlugin());
                             }
@@ -88,7 +94,7 @@ public class CharmTask implements Runnable {
                                             p.getOrCreate(PotionEffectData.class).ifPresent(potionEffectData -> {
                                                 p.offer(
                                                         potionEffectData.set(potionEffectData.effects()
-                                                                .add(PotionEffect.of(PotionEffectTypes.INVISIBILITY, 1, 200))
+                                                                .add(PotionEffect.of(PotionEffectTypes.INVISIBILITY, 1, 30))
                                                         ));
                                             });
                                         }).interval(0, TimeUnit.SECONDS).submit(PumpkinsPlugin.getPumpkinsPlugin());
@@ -99,8 +105,8 @@ public class CharmTask implements Runnable {
                                             p.getOrCreate(PotionEffectData.class).ifPresent(potionEffectData -> {
                                                 p.offer(
                                                         potionEffectData.set(potionEffectData.effects()
-                                                                .add(PotionEffect.of(PotionEffectTypes.NIGHT_VISION, 1, 200))
-                                                                .add(PotionEffect.of(PotionEffectTypes.HASTE, 4, 200))
+                                                                .add(PotionEffect.of(PotionEffectTypes.NIGHT_VISION, 2, 800))
+                                                                .add(PotionEffect.of(PotionEffectTypes.HASTE, 2, 30))
                                                         ));
                                             });
                                         }).interval(0, TimeUnit.SECONDS).submit(PumpkinsPlugin.getPumpkinsPlugin());
@@ -111,7 +117,7 @@ public class CharmTask implements Runnable {
                                             p.getOrCreate(PotionEffectData.class).ifPresent(potionEffectData -> {
                                                 p.offer(
                                                         potionEffectData.set(potionEffectData.effects()
-                                                                .add(PotionEffect.of(PotionEffectTypes.WATER_BREATHING, 1, 200))
+                                                                .add(PotionEffect.of(PotionEffectTypes.WATER_BREATHING, 1, 30))
                                                         ));
                                             });
                                         }).interval(0, TimeUnit.SECONDS).submit(PumpkinsPlugin.getPumpkinsPlugin());
@@ -122,7 +128,7 @@ public class CharmTask implements Runnable {
                                             p.getOrCreate(PotionEffectData.class).ifPresent(potionEffectData -> {
                                                 p.offer(
                                                         potionEffectData.set(potionEffectData.effects()
-                                                                .add(PotionEffect.of(PotionEffectTypes.LEVITATION, 3, 200))
+                                                                .add(PotionEffect.of(PotionEffectTypes.LEVITATION, 2, 30))
                                                         ));
                                             });
                                         }).interval(0, TimeUnit.SECONDS).submit(PumpkinsPlugin.getPumpkinsPlugin());
@@ -133,7 +139,7 @@ public class CharmTask implements Runnable {
                                             p.getOrCreate(PotionEffectData.class).ifPresent(potionEffectData -> {
                                                 p.offer(
                                                         potionEffectData.set(potionEffectData.effects()
-                                                                .add(PotionEffect.of(PotionEffectTypes.JUMP_BOOST, 4, 200))
+                                                                .add(PotionEffect.of(PotionEffectTypes.JUMP_BOOST, 4, 30))
                                                         ));
                                             });
                                         }).interval(0, TimeUnit.SECONDS).submit(PumpkinsPlugin.getPumpkinsPlugin());

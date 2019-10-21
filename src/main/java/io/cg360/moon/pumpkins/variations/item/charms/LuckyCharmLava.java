@@ -24,7 +24,7 @@ public class LuckyCharmLava extends PumpkinLuckyRoll {
 
     @Override
     protected void run(Player player, Location<World> loc, int luckmult){
-        ItemStack itemStack = ItemStack.builder().itemType(ItemTypes.NETHER_BRICK).quantity(1).build();
+        ItemStack itemStack = ItemStack.builder().itemType(ItemTypes.NETHERBRICK).quantity(1).build();
         itemStack.offer(Keys.DISPLAY_NAME, Text.of(TextColors.GOLD, TextStyles.BOLD, "Lava Charm"));
         itemStack.offer(Keys.ITEM_LORE, Arrays.asList(
                     Text.of(TextColors.BLACK, "lava_charm"),

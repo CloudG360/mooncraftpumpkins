@@ -24,7 +24,7 @@ public class LuckyCharmHealing extends PumpkinLuckyRoll {
 
     @Override
     protected void run(Player player, Location<World> loc, int luckmult){
-        ItemStack itemStack = ItemStack.builder().itemType(ItemTypes.BEETROOT).quantity(1).build();
+        ItemStack itemStack = ItemStack.builder().itemType(ItemTypes.BEETROOT_SOUP).quantity(1).build();
         itemStack.offer(Keys.DISPLAY_NAME, Text.of(TextColors.RED, TextStyles.BOLD, "Healing Charm"));
         itemStack.offer(Keys.ITEM_LORE, Arrays.asList(
                     Text.of(TextColors.BLACK, "regeneration_charm"),
@@ -44,6 +44,6 @@ public class LuckyCharmHealing extends PumpkinLuckyRoll {
         e.offer(Keys.REPRESENTED_ITEM, s);
         loc.getExtent().spawnEntity(e);
 
-        player.sendMessage(Text.of(TextColors.GOLD, TextStyles.BOLD, "TREAT", TextStyles.RESET, TextColors.GOLD, " You got a Life Charm!"));
+        player.sendMessage(Text.of(TextColors.GOLD, TextStyles.BOLD, "TREAT", TextStyles.RESET, TextColors.GOLD, " You got a Healing Charm!"));
     }
 }

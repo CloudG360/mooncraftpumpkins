@@ -5,6 +5,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
 import com.google.inject.Inject;
+import io.cg360.moon.pumpkins.charms.CharmTask;
 import io.cg360.moon.pumpkins.commands.debug.CommandSpawnPumplin;
 import io.cg360.moon.pumpkins.commands.debug.CommandTriggerPumpkinResult;
 import io.cg360.moon.pumpkins.managers.PumpkinResultManager;
@@ -58,6 +59,7 @@ import org.spongepowered.api.item.inventory.ItemStackSnapshot;
 import org.spongepowered.api.plugin.Dependency;
 import org.spongepowered.api.plugin.Plugin;
 import org.spongepowered.api.plugin.PluginContainer;
+import org.spongepowered.api.scheduler.Task;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.format.TextColors;
 import org.spongepowered.api.text.format.TextStyles;
@@ -167,6 +169,8 @@ public class PumpkinsPlugin {
         Sponge.getCommandManager().register(this, debugpumplin, "debugspawnpumplin");
 
         // -------
+
+        Task t = Task.builder().execute(new CharmTask()).async().intervalTicks(10).submit(this);
 
     }
 
