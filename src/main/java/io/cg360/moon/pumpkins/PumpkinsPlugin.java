@@ -40,6 +40,7 @@ import org.spongepowered.api.entity.living.monster.Zombie;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.block.ChangeBlockEvent;
+import org.spongepowered.api.event.cause.EventContextKeys;
 import org.spongepowered.api.event.cause.entity.damage.DamageTypes;
 import org.spongepowered.api.event.cause.entity.damage.source.DamageSource;
 import org.spongepowered.api.event.cause.entity.damage.source.DamageSources;
@@ -94,6 +95,7 @@ public class PumpkinsPlugin {
 
     private HashMap<ItemStackSnapshot, LocalDateTime> cooldowns;
     private ArrayList<UUID> ignoreIDs;
+    private ArrayList<UUID> ignoreExplosionIDs;
 
     @Inject
     private Logger logger;
@@ -107,6 +109,7 @@ public class PumpkinsPlugin {
 
         cooldowns = new HashMap<>();
         ignoreIDs = new ArrayList<>();
+        ignoreExplosionIDs = new ArrayList<>();
 
         pumpkinResultManager = new PumpkinResultManager();
 
@@ -188,6 +191,11 @@ public class PumpkinsPlugin {
         if(this.ignoreIDs.contains(e.get().getUniqueId())){
             event.setCancelled(true);
             ignoreIDs.remove(e.get().getUniqueId());
+        }
+        if(event.getContext().get(EventContextKeys.DAMAGE_TYPE).orElse(DamageTypes.GENERIC) == DamageTypes.EXPLOSIVE){
+            if(ignoreExplosionIDs.contains(event.getTargetEntity().getUniqueId())){
+                event.setCancelled(true);
+            }
         }
     }
 
@@ -607,6 +615,7 @@ public class PumpkinsPlugin {
     }
 
     public void registerIgnoreUUID(UUID uuid){ this.ignoreIDs.add(uuid); }
+    public void registerIgnoreExplosionUUID(UUID uuid){ this.ignoreExplosionIDs.add(uuid); }
 
     public static PumpkinsPlugin getPumpkinsPlugin() { return pumpkinsPlugin; }
     public static Supplykeys getSKPlugin(){ return supplykeys; }

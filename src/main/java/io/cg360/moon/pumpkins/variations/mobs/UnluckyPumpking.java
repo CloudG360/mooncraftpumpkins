@@ -56,21 +56,22 @@ public class UnluckyPumpking extends PumpkinLuckyRoll {
             helm.offer(d);
         });
         helm.offer(Keys.ITEM_LORE, Arrays.asList(Text.of(TextColors.BLACK, "boss_pumpking"), Text.of(TextColors.RED, "You should not have this. It's a bug.")));
-        ItemStack chest = ItemStack.builder().itemType(ItemTypes.LIT_PUMPKIN).build();
+        ItemStack chest = ItemStack.builder().itemType(ItemTypes.DIAMOND_CHESTPLATE).build();
         chest.getOrCreate(EnchantmentData.class).ifPresent(enchantmentData -> {
             EnchantmentData d = enchantmentData.set(enchantmentData.enchantments()
                     .add(Enchantment.of(EnchantmentTypes.PROTECTION, 5))
                     .add(Enchantment.of(EnchantmentTypes.THORNS, 3))
                     .add(Enchantment.of(EnchantmentTypes.UNBREAKING, 3))
-                    .add(Enchantment.of(EnchantmentTypes.BLAST_PROTECTION, 100))
+                    .add(Enchantment.of(EnchantmentTypes.BLAST_PROTECTION, 20))
             );
             chest.offer(d);
         });
-        ItemStack leg = ItemStack.builder().itemType(ItemTypes.LIT_PUMPKIN).build();
+        ItemStack leg = ItemStack.builder().itemType(ItemTypes.DIAMOND_LEGGINGS).build();
         leg.getOrCreate(EnchantmentData.class).ifPresent(enchantmentData -> {
             EnchantmentData d = enchantmentData.set(enchantmentData.enchantments()
                     .add(Enchantment.of(EnchantmentTypes.PROTECTION, 5))
                     .add(Enchantment.of(EnchantmentTypes.UNBREAKING, 3))
+                    .add(Enchantment.of(EnchantmentTypes.BLAST_PROTECTION, 20))
             );
             leg.offer(d);
         });
@@ -81,6 +82,7 @@ public class UnluckyPumpking extends PumpkinLuckyRoll {
                     .add(Enchantment.of(EnchantmentTypes.FROST_WALKER, 4))
                     .add(Enchantment.of(EnchantmentTypes.FEATHER_FALLING, 3))
                     .add(Enchantment.of(EnchantmentTypes.UNBREAKING, 3))
+                    .add(Enchantment.of(EnchantmentTypes.BLAST_PROTECTION, 20))
             );
             foot.offer(d);
         });
@@ -100,7 +102,10 @@ public class UnluckyPumpking extends PumpkinLuckyRoll {
                     .add(PotionEffect.of(PotionEffectTypes.STRENGTH, 3, 100000))
                     .add(PotionEffect.of(PotionEffectTypes.SPEED, 2, 100000))
             );
+            w.offer(d);
         });
+
+        PumpkinsPlugin.getPumpkinsPlugin().registerIgnoreExplosionUUID(w.getUniqueId());
 
         try (CauseStackManager.StackFrame frame = Sponge.getCauseStackManager().pushCauseFrame()) {
             frame.addContext(EventContextKeys.SPAWN_TYPE, SpawnTypes.PLUGIN);

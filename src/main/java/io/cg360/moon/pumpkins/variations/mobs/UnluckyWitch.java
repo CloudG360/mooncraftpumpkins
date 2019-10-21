@@ -33,7 +33,7 @@ public class UnluckyWitch extends PumpkinLuckyRoll {
     }
 
     private static Entity spawnWitch(Location<World> loc, String name){
-        Entity e = loc.getExtent().createEntity(EntityTypes.GHAST, loc.getPosition());
+        Entity e = loc.getExtent().createEntity(EntityTypes.WITCH, loc.getPosition());
         e.offer(Keys.DISPLAY_NAME, Text.of(TextColors.LIGHT_PURPLE, TextStyles.BOLD, name));
         e.offer(Keys.CUSTOM_NAME_VISIBLE, true);
 

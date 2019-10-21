@@ -27,7 +27,7 @@ public class LuckyPinkSheep extends PumpkinLuckyRoll {
     }
 
     private static Entity spawnPinkSheep(Location<World> loc){
-        Entity e = loc.getExtent().createEntity(EntityTypes.GHAST, loc.getPosition());
+        Entity e = loc.getExtent().createEntity(EntityTypes.SHEEP, loc.getPosition());
         e.offer(Keys.DISPLAY_NAME, Text.of(TextColors.LIGHT_PURPLE, TextStyles.BOLD, "Pink Sheep?"));
         e.offer(Keys.CUSTOM_NAME_VISIBLE, true);
 
