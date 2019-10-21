@@ -31,7 +31,7 @@ public class LuckyLeapingStick extends PumpkinLuckyRoll {
         Optional<SerializableItem> i = PumpkinsPlugin.getSKPlugin().getPoolManager().getItem(PumpkinConfiguration.get().getPumpkinCrateKeyID());
 
         int offluck = 1 + luckmult;
-        int lucklvl = new Random().nextInt((2 + offluck) * 2) + 3;
+        int lucklvl = new Random().nextInt((2 + offluck) * 2) + 4;
 
         ItemStack itemStack = ItemStack.builder().itemType(ItemTypes.STICK).quantity(1).build();
         itemStack.offer(Keys.DISPLAY_NAME, Text.of(TextColors.GREEN, TextStyles.BOLD, "Wand of Leaping"));

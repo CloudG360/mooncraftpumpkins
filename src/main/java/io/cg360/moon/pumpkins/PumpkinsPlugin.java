@@ -15,9 +15,8 @@ import io.cg360.moon.pumpkins.variations.item.wands.LuckyDamagingStick;
 import io.cg360.moon.pumpkins.variations.item.wands.LuckyLeapingStick;
 import io.cg360.moon.pumpkins.variations.item.wands.LuckyScreamingStick;
 import io.cg360.moon.pumpkins.variations.item.wands.LuckySlothStick;
-import io.cg360.moon.pumpkins.variations.mobs.LuckySpookyLlamas;
-import io.cg360.moon.pumpkins.variations.mobs.UnluckyGhastTrio;
-import io.cg360.moon.pumpkins.variations.mobs.UnluckyPumplinHorde;
+import io.cg360.moon.pumpkins.variations.mobs.*;
+import io.cg360.moon.pumpkins.variations.structure.*;
 import io.cg360.moon.supplykeys.Supplykeys;
 import io.cg360.moon.supplykeys.exceptions.MalformedLootPoolException;
 import org.slf4j.Logger;
@@ -34,9 +33,11 @@ import org.spongepowered.api.effect.potion.PotionEffectTypes;
 import org.spongepowered.api.effect.sound.SoundTypes;
 import org.spongepowered.api.entity.Entity;
 import org.spongepowered.api.entity.EntityTypes;
+import org.spongepowered.api.entity.living.monster.WitherSkeleton;
 import org.spongepowered.api.entity.living.monster.Zombie;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.Listener;
+import org.spongepowered.api.event.block.ChangeBlockEvent;
 import org.spongepowered.api.event.cause.entity.damage.DamageTypes;
 import org.spongepowered.api.event.cause.entity.damage.source.DamageSource;
 import org.spongepowered.api.event.cause.entity.damage.source.DamageSources;
@@ -47,6 +48,7 @@ import org.spongepowered.api.event.entity.SpawnEntityEvent;
 import org.spongepowered.api.event.game.state.GameStartedServerEvent;
 import org.spongepowered.api.event.item.inventory.DropItemEvent;
 import org.spongepowered.api.event.item.inventory.InteractItemEvent;
+import org.spongepowered.api.event.world.ExplosionEvent;
 import org.spongepowered.api.item.ItemTypes;
 import org.spongepowered.api.item.enchantment.Enchantment;
 import org.spongepowered.api.item.enchantment.EnchantmentTypes;
@@ -59,6 +61,7 @@ import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.format.TextColors;
 import org.spongepowered.api.text.format.TextStyles;
 import org.spongepowered.api.text.title.Title;
+import org.spongepowered.api.world.BlockChangeFlags;
 
 import java.io.*;
 import java.time.LocalDateTime;
@@ -108,8 +111,6 @@ public class PumpkinsPlugin {
 
         // -------
 
-        //TODO: Check trello for unimplemented rolls (Screaming stick, the 3 ghasts)
-
         pumpkinResultManager.registerRoll(new LuckySpookyLlamas().setConfig("m_llamas", 15, PumpkinType.MIXED));
 
         pumpkinResultManager.registerRoll(new LuckyPumpkinCrate().setConfig("l_pumpkin_crate", 10, PumpkinType.LUCKY));
@@ -117,10 +118,19 @@ public class PumpkinsPlugin {
         pumpkinResultManager.registerRoll(new LuckyLeapingStick().setConfig("l_wand_leaping", 5, PumpkinType.LUCKY));
         pumpkinResultManager.registerRoll(new LuckyDamagingStick().setConfig("l_wand_damaging", 5, PumpkinType.LUCKY));
         pumpkinResultManager.registerRoll(new LuckySlothStick().setConfig("l_wand_slowing", 5, PumpkinType.LUCKY));
+        pumpkinResultManager.registerRoll(new LuckyPinkSheep().setConfig("l_mob_sheeppink", 10, PumpkinType.LUCKY));
+        pumpkinResultManager.registerRoll(new LuckyDiamondBlock().setConfig("l_block_diamond", 10, PumpkinType.LUCKY));
+        pumpkinResultManager.registerRoll(new LuckyEmeraldBlock().setConfig("l_block_emerald", 10, PumpkinType.LUCKY));
+        pumpkinResultManager.registerRoll(new LuckyDragonEgg().setConfig("l_block_egg", 10, PumpkinType.LUCKY));
 
         pumpkinResultManager.registerRoll(new UnluckyPumpkinHelm().setConfig("u_cursed_helm", 10, PumpkinType.UNLUCKY));
-        pumpkinResultManager.registerRoll(new UnluckyPumplinHorde().setConfig("u_pumplin_raid", 15, PumpkinType.UNLUCKY));
-        pumpkinResultManager.registerRoll(new UnluckyGhastTrio().setConfig("u_three_ghosts", 13, PumpkinType.UNLUCKY));
+        pumpkinResultManager.registerRoll(new UnluckyPumplinHorde().setConfig("u_pumplin_raid", 20, PumpkinType.UNLUCKY));
+        pumpkinResultManager.registerRoll(new UnluckyPumpking().setConfig("u_pumpking", 5, PumpkinType.UNLUCKY));
+        pumpkinResultManager.registerRoll(new UnluckyGhastTrio().setConfig("u_three_ghosts", 15, PumpkinType.UNLUCKY));
+        pumpkinResultManager.registerRoll(new UnluckyGhastTrio().setConfig("u_witches", 15, PumpkinType.UNLUCKY));
+        pumpkinResultManager.registerRoll(new UnluckyAnvil().setConfig("u_anvil", 15, PumpkinType.UNLUCKY));
+        pumpkinResultManager.registerRoll(new UnluckyFire().setConfig("u_fire", 15, PumpkinType.UNLUCKY));
+        pumpkinResultManager.registerRoll(new UnluckyLava().setConfig("u_lava", 15, PumpkinType.UNLUCKY));
 
         // -------
 
@@ -380,6 +390,15 @@ public class PumpkinsPlugin {
     }
 
     @Listener
+    public void onExplosion(ChangeBlockEvent event){
+        if(event instanceof ExplosionEvent){
+            event.getTransactions().forEach(blockSnapshotTransaction -> {
+                blockSnapshotTransaction.getOriginal().restore(true, BlockChangeFlags.NONE);
+            });
+        }
+    }
+
+    @Listener
     public void onDropItem(DropItemEvent.Destruct event){
         Optional<Zombie> e = event.getCause().first(Zombie.class);
         if(e.isPresent()){
@@ -459,6 +478,42 @@ public class PumpkinsPlugin {
                             }
                         }
                     }
+                }
+            }
+        }
+        Optional<WitherSkeleton> we = event.getCause().first(WitherSkeleton.class);
+        if(we.isPresent()){
+            WitherSkeleton w = we.get();
+            Optional<ItemStack> is = w.getHelmet();
+            if(is.isPresent()){
+                ItemStack stack = is.get();
+                if(stack.getType() == ItemTypes.LIT_PUMPKIN) { // Likely a pumplin
+                    Optional<List<Text>> t = stack.get(Keys.ITEM_LORE);
+                    if (t.isPresent()) {
+                        List<Text> text = t.get();
+                        if (text.size() >= 2) {
+                            switch (text.get(0).toPlain().toLowerCase()) {
+                                case "boss_pumpking":
+                                    event.setCancelled(true);
+                                    ItemStack itemStack = ItemStack.builder().itemType(ItemTypes.LIT_PUMPKIN).quantity(1).build();
+                                    itemStack.offer(Keys.DISPLAY_NAME, Text.of(TextColors.GOLD, TextStyles.BOLD, "Pumpkin King Trophy"));
+                                    itemStack.offer(Keys.ITEM_LORE, Arrays.asList(
+                                            Text.of(TextColors.BLACK, "trophy"),
+                                            Text.of(TextColors.DARK_GRAY, "Earned by defeating a"),
+                                            Text.of(TextColors.DARK_GRAY, "Pumpkin King during"),
+                                            Text.of(TextColors.GOLD, "Halloween 2019")
+                                    ));
+                                    ItemStackSnapshot s = itemStack.createSnapshot();
+                                    Entity f = w.getWorld().createEntity(EntityTypes.ITEM, w.getLocation().getPosition().add(0, 0.25, 0));
+                                    f.offer(Keys.REPRESENTED_ITEM, s);
+                                    w.getWorld().spawnEntity(f);
+                                    break;
+                                default:
+                                    logger.info("When do wither skeletons have jack o lanterns for helmets?");
+                            }
+                        }
+                    }
+
                 }
             }
         }
